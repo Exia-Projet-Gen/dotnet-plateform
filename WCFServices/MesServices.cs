@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace WCFServices
 {
-    public class Services : WCFInterfaces.IServices
+    public class MesServices : WCFInterfaces.IMesServices
     {
-        private void logCall(params object[] parameters)
+        private void LoggerCall(params object[] parameters)
         {
             StackTrace stackTrace = new StackTrace();
             StackFrame stackFrame = stackTrace.GetFrame(1);
@@ -19,18 +19,17 @@ namespace WCFServices
             StringBuilder stringBuilder = new StringBuilder();
             ParameterInfo[] parametersInfo = methodBase.GetParameters();
 
-            for(int index = 0; index < parametersInfo.Length; index++)
+            for (int index= 0; index < parametersInfo.Length; index++)
             {
-                stringBuilder.AppendFormat("[{0}]-[{1}]", parametersInfo[index].Name, parameters[index]);
+                stringBuilder.AppendFormat(" [{0}={1}]", parametersInfo[index].Name, parameters[index]);
             }
 
             Console.WriteLine("{0} : {1}", methodBase.Name, stringBuilder);
         }
-
-        public string Maj(string value)
+        public string Authenticate(string login, string password)
         {
-            logCall(value);
-            return value.ToUpper();
+            LoggerCall(new object[2] { login, password });
+            return "ok";
         }
     }
 }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ServiceModel;
+using System.ServiceModel; 
 
 namespace WCFInterfaces
 {
     [ServiceContract]
-    public interface IServices
+    public interface IMesServices
     {
         [OperationContract]
-        string Maj(string value);
+        string Authenticate(string login, string password);
     }
 }
