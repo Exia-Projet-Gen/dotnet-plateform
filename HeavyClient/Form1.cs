@@ -19,9 +19,7 @@ namespace HeavyClient
 
             MessageBox.Show("Prêt ?");
 
-            channelFactory = new ChannelFactory<WCFInterfaces.IServices>(
-                new NetTcpBinding(),
-                "net.tcp://localhost:2605/ServicesWCF");
+            channelFactory = new ChannelFactory<WCFInterfaces.IServices>("tcpConfig");
 
             services = channelFactory.CreateChannel();
         }

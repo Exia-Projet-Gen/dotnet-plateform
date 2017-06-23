@@ -14,15 +14,15 @@ namespace TestClient
 
         static void Main(string[] args)
         {
-            channelFactory = new ChannelFactory<WCFInterfaces.IServices>(
-                new NetTcpBinding(),
-                "net.tcp://localhost:2605/ServicesWCF"
-            );
+            channelFactory = new ChannelFactory<WCFInterfaces.IServices>("tcpConfig");
 
             services = channelFactory.CreateChannel();
 
             Console.WriteLine("Ready ?");
             string login = Console.ReadLine();
+
+            Console.WriteLine("Endpoint = {0}", channelFactory.Endpoint.Address.ToString());
+
             string password = null;
             Console.WriteLine("('q' to quit)");
             string result = null;
