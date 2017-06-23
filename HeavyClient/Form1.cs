@@ -19,22 +19,22 @@ namespace HeavyClient
 
             MessageBox.Show("Prêt ?");
 
-            channelFactory = new ChannelFactory<WCFInterfaces.IMesServices>(
+            channelFactory = new ChannelFactory<WCFInterfaces.IServices>(
                 new NetTcpBinding(),
-                "net.tcp://localhost:2605/MesServicesWCF");
+                "net.tcp://localhost:2605/ServicesWCF");
 
             services = channelFactory.CreateChannel();
         }
 
-        private ChannelFactory<WCFInterfaces.IMesServices> channelFactory = null;
+        private ChannelFactory<WCFInterfaces.IServices> channelFactory = null;
 
-        private WCFInterfaces.IMesServices services = null;
+        private WCFInterfaces.IServices services = null;
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
             {
-                labelLogin.Text = services.Authenticate(inputLogin.Text, inputPassword.Text);
+                passResult.Text = services.Authenticate(inputLogin.Text, inputPassword.Text);
             }
             catch
             {

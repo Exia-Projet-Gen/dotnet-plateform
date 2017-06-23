@@ -8,7 +8,7 @@ using System.ServiceModel;
 namespace WCFInterfaces
 {
     [ServiceContract]
-    public interface IMesServices
+    public interface IServices
     {
         [OperationContract]
         string Authenticate(string login, string password);

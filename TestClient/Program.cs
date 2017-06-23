@@ -22,18 +22,22 @@ namespace TestClient
             services = channelFactory.CreateChannel();
 
             Console.WriteLine("Ready ?");
-            string text = Console.ReadLine();
+            string login = Console.ReadLine();
+            string password = null;
             Console.WriteLine("('q' to quit)");
             string result = null;
 
             do {
-                Console.WriteLine("\nType something :");
-                text = Console.ReadLine();
+                Console.WriteLine("\nType login :");
+                login = Console.ReadLine();
+                Console.WriteLine("\nType password :");
+                password = Console.ReadLine();
 
-                if (text == "q") continue;
+                if (login == "q") continue;
+                if (password == "q") continue;
 
                 try {
-                    result = services.Maj(text);
+                    result = services.Authenticate(login, password);
                     Console.WriteLine("Result :");
                     Console.WriteLine(result);
                 }
@@ -43,7 +47,7 @@ namespace TestClient
                     throw;
                 }
 
-            } while(text != "q");
+            } while(login != "q" && password != "q");
             
         }
     }

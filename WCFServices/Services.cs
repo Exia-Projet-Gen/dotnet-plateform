@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace WCFServices
 {
-    public class MesServices : WCFInterfaces.IMesServices
+    public class Services : WCFInterfaces.IServices
     {
-        private void LoggerCall(params object[] parameters)
+        private void logCall(params object[] parameters)
         {
             StackTrace stackTrace = new StackTrace();
             StackFrame stackFrame = stackTrace.GetFrame(1);
@@ -28,7 +28,7 @@ namespace WCFServices
         }
         public string Authenticate(string login, string password)
         {
-            LoggerCall(new object[2] { login, password });
+            logCall(new object[2] { login, password });
             return "ok";
         }
     }

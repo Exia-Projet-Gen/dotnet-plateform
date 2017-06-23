@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WCFInterfaces\WCFInterfaces.csproj">
-      <Project>{0a9f2a45-493b-4181-a403-512db6e02ece}</Project>
+      <Project>{07892b6f-8131-4c79-ad45-8bc22c65e919}</Project>
       <Name>WCFInterfaces</Name>
     </ProjectReference>
   </ItemGroup>

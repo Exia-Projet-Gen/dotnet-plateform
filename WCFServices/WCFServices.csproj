@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1A8D2F2-D229-4368-BE44-79F8A623FE1F}</ProjectGuid>
+    <ProjectGuid>{86B29438-DF0B-43B3-A10A-DFB9144AD918}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WCFServices</RootNamespace>
@@ -41,11 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MesServices.cs" />
+    <Compile Include="Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WVFInterfaces\WCFInterfaces.csproj">
+    <ProjectReference Include="..\WCFInterfaces\WCFInterfaces.csproj">
       <Project>{07892b6f-8131-4c79-ad45-8bc22c65e919}</Project>
       <Name>WCFInterfaces</Name>
     </ProjectReference>

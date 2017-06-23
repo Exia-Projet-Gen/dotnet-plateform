@@ -81,7 +81,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WVFInterfaces\WCFInterfaces.csproj">
+    <ProjectReference Include="..\WCFInterfaces\WCFInterfaces.csproj">
       <Project>{07892b6f-8131-4c79-ad45-8bc22c65e919}</Project>
       <Name>WCFInterfaces</Name>
     </ProjectReference>
