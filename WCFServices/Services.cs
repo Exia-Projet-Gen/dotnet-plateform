@@ -10,25 +10,24 @@ namespace WCFServices
 {
     public class Services : WCFInterfaces.IServices
     {
-        private void logCall(params object[] parameters)
+        private void logCall(WCFInterfaces.STG message)
         {
-            StackTrace stackTrace = new StackTrace();
-            StackFrame stackFrame = stackTrace.GetFrame(1);
-            MethodBase methodBase = stackFrame.GetMethod();
-
-            StringBuilder stringBuilder = new StringBuilder();
-            ParameterInfo[] parametersInfo = methodBase.GetParameters();
-
-            for (int index= 0; index < parametersInfo.Length; index++)
+            Console.WriteLine(message.statut_op);
+            Console.WriteLine(message.info);
+            Console.WriteLine(message.operationname);
+            Console.WriteLine(message.tokenUser);
+            Console.WriteLine(message.tokenApp);
+            Console.WriteLine("Datas :");
+            foreach (var i in message.data)
             {
-                stringBuilder.AppendFormat(" [{0}={1}]", parametersInfo[index].Name, parameters[index]);
+                Console.WriteLine(i.ToString());
             }
-
-            Console.WriteLine("{0} : {1}", methodBase.Name, stringBuilder);
         }
-        public string Authenticate(string login, string password)
+
+        public string m_service(WCFInterfaces.STG message)
         {
-            logCall(new object[2] { login, password });
+            logCall(message);
+
             return "ok";
         }
     }

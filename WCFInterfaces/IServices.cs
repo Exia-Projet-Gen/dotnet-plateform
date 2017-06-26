@@ -11,6 +11,16 @@ namespace WCFInterfaces
     public interface IServices
     {
         [OperationContract]
-        string Authenticate(string login, string password);
+        string m_service(STG message);
+    }
+
+    public struct STG
+    {
+        public bool statut_op { get; set; }
+        public string info { get; set; }
+        public object[] data { get; set; }
+        public string operationname { get; set; }
+        public string tokenApp { get; set; }
+        public string tokenUser { get; set; }
     }
 }
