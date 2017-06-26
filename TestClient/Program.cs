@@ -36,7 +36,8 @@ namespace TestClient
                 if (login == "q") continue;
                 if (password == "q") continue;
 
-                WCFInterfaces.STG message = new WCFInterfaces.STG() {
+                WCFInterfaces.STG message = new WCFInterfaces.STG()
+                {
                     statut_op = true,
                     info = "connection",
                     data = new object[2] { login, password },

@@ -1,0 +1,20 @@
+﻿<Page x:Class="TestClient.SendFiles"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestClient"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="SendFiles">
+
+    <Grid Background="White" Margin="-85,-12,-146,-52">
+        <Label x:Name="labelBrowse" Content="Open a file" HorizontalAlignment="Left" Margin="126,159,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="boxBrowse" HorizontalAlignment="Left" Height="23" Margin="194,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Text="..." IsEnabled="False"/>
+        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="424,162,0,0" VerticalAlignment="Top" Width="81" Height="23" Click="btnBrowse_Click"/>
+        <Button x:Name="btnSendFiles" Content="Send Files" HorizontalAlignment="Left" Margin="249,236,0,0" VerticalAlignment="Top" Width="75" Click="btnSendFiles_Click"/>
+        <Label x:Name="labelFiles" Content="Label" HorizontalAlignment="Left" Margin="442,308,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="fileBox" HorizontalAlignment="Left" Margin="253,25,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="103" Width="155"/>
+
+    </Grid>
+</Page>
