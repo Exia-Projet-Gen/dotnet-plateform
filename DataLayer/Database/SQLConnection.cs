@@ -29,7 +29,7 @@ namespace DataLayer.Database
         // Constructor
         private SQLConnection()
         {
-            _connectionString = @"Server = localhost; Database = Gen; Integrated Security = SSPI;";
+            _connectionString = @"Server=DESKTOP-FIADHB2\MSSQLSERVER01;Database=Gen;Integrated Security=SSPI;";
             _bddConnection = new SqlConnection();
             Connect();
         }
