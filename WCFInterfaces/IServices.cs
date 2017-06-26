@@ -12,5 +12,8 @@ namespace WCFInterfaces
     {
         [OperationContract]
         string Authenticate(string login, string password);
+
+        [OperationContract]
+        string SendFiles(string FilesContent);
     }
 }

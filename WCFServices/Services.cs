@@ -31,5 +31,12 @@ namespace WCFServices
             logCall(new object[2] { login, password });
             return "ok";
         }
+
+        public string SendFiles(string FilesContent)
+        {
+            Console.WriteLine("Files sended");
+            logCall(FilesContent);
+            return "ok";
+        }
     }
 }
