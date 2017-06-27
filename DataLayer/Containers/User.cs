@@ -60,6 +60,13 @@ namespace DataLayer.Containers
             _username = null;
         }
 
+        public User(string username, string email, string password)
+        {
+            _username = username;
+            _email = email;
+            _password = password;
+        }
+
         public User(int id, string username, string email, string password, string tokenUser)
         {
             _id = id;

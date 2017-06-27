@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86B29438-DF0B-43B3-A10A-DFB9144AD918}</ProjectGuid>
+    <ProjectGuid>{25F2BEA0-F519-407D-A300-AB7E57A1BC63}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WCFServices</RootNamespace>
-    <AssemblyName>WCFServices</AssemblyName>
+    <RootNamespace>BusinessLayer</RootNamespace>
+    <AssemblyName>BusinessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,13 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services.cs" />
+    <Compile Include="Authentication.cs" />
+    <Compile Include="Hasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{25f2bea0-f519-407d-a300-ab7e57a1bc63}</Project>
-      <Name>BusinessLayer</Name>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{db0ec8b0-1119-435a-bf6c-0c97b26c6a72}</Project>
+      <Name>DataLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\WCFInterfaces\WCFInterfaces.csproj">
       <Project>{07892b6f-8131-4c79-ad45-8bc22c65e919}</Project>

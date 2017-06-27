@@ -21,14 +21,21 @@ namespace DataLayer.Mapping
             _bdd = SQLConnection.Instance();
         }
 
-        // --- SELECT ---
-
         // SELECT all
         public List<User> SelectAll()
         {
             string query = "SELECT * FROM Users";
 
             return Select(new SqlCommand(query));
+        }
+
+        // SELECT by username
+        public List<User> SelectByUsername(string username)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE username = @USERNAME");
+            command.Parameters.AddWithValue("USERNAME", username);
+
+            return Select(command);
         }
 
         // Check existance
@@ -42,7 +49,48 @@ namespace DataLayer.Mapping
             else return false;
         }
 
-        //Handle SELECT request
+        // Check if username exist
+        public bool UsernameExist(string username)
+        {
+            string query = "SELECT * FROM Users WHERE username = @USERNAME";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("USERNAME", username);
+
+            if (_bdd.SelectRows(command).Rows.Count > 0) return true;
+            else return false;
+        }
+
+        // Check if email exist
+        public bool EmailExist(string email)
+        {
+            string query = "SELECT * FROM Users WHERE email = @EMAIL";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("EMAIL", email);
+
+            if (_bdd.SelectRows(command).Rows.Count > 0) return true;
+            else return false;
+        }
+
+        public string getUserHashedPassword(string username)
+        {
+            string query = "SELECT password FROM Users WHERE username = @USERNAME";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("USERNAME", username);
+
+            DataRowCollection rows = _bdd.SelectRows(command).Rows;
+
+            try
+            {
+                return rows[0]["password"].ToString();
+            }
+            catch (InvalidOperationException)
+            {
+                InvalidOperationException ex = new InvalidOperationException("Can't find user");
+                throw ex;
+            }
+        }
+
+        // Handle SELECT request
         private List<User> Select(SqlCommand command)
         {
             List<User> users = new List<User>();
@@ -62,6 +110,45 @@ namespace DataLayer.Mapping
             }
 
             return users;
+        }
+
+        // INSERT INTO
+        public int Insert(User user)
+        {
+            string query = "INSERT INTO Users (username, email, password) VALUES (@USERNAME, @EMAIL, @PASSWORD)";
+            SqlCommand command = new SqlCommand(query);
+
+            command.Parameters.AddWithValue("USERNAME", user.Username);
+            command.Parameters.AddWithValue("EMAIL", user.Email);
+            command.Parameters.AddWithValue("PASSWORD", user.Password);
+
+            try
+            {
+                return _bdd.ActionsOnRows(command);
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+        }
+
+        // Update tokenUser
+        public int UpdateTokenUser(int id, string tokenUser)
+        {
+            string query = "UPDATE Users SET tokenUser = @TOKEN WHERE id = @ID";
+            SqlCommand command = new SqlCommand(query);
+
+            command.Parameters.AddWithValue("TOKEN", tokenUser);
+            command.Parameters.AddWithValue("ID",id);
+
+            try
+            {
+                return _bdd.ActionsOnRows(command);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return 0;
+            }
         }
     }
 }

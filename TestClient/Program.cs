@@ -40,9 +40,9 @@ namespace TestClient
                 STG message = new STG()
                 {
                     statut_op = true,
-                    info = "connection",
+                    info = "login",
                     data = new object[2] { login, password },
-                    operationname = "connection",
+                    operationname = "login",
                     tokenApp = tokenApp,
                     tokenUser = "tokenUser"
                 };
