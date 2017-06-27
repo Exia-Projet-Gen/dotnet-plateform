@@ -11,7 +11,7 @@ namespace WCFInterfaces
     public interface IServices
     {
         [OperationContract]
-        string m_service(STG message);
+        STG m_service(STG message);
     }
 
     public struct STG
@@ -22,5 +22,19 @@ namespace WCFInterfaces
         public string operationname { get; set; }
         public string tokenApp { get; set; }
         public string tokenUser { get; set; }
+
+        public void Print()
+        {
+            Console.WriteLine(statut_op);
+            Console.WriteLine(info);
+            Console.WriteLine(operationname);
+            Console.WriteLine(tokenUser);
+            Console.WriteLine(tokenApp);
+            Console.WriteLine("Datas :");
+            foreach (var i in data)
+            {
+                Console.WriteLine(i.ToString());
+            }
+        }
     }
 }

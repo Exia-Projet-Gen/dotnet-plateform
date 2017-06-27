@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using WCFInterfaces;
 
 namespace TestClient
 {
     class Program
     {
-        static private ChannelFactory<WCFInterfaces.IServices> channelFactory = null;
-        static private WCFInterfaces.IServices services = null;
+        static private ChannelFactory<IServices> channelFactory = null;
+        static private IServices services = null;
+        static private string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W"; 
 
         static void Main(string[] args)
         {
-            channelFactory = new ChannelFactory<WCFInterfaces.IServices>("tcpConfig");
+            channelFactory = new ChannelFactory<IServices>("tcpConfig");
 
             services = channelFactory.CreateChannel();
 
@@ -25,7 +27,6 @@ namespace TestClient
 
             string password = null;
             Console.WriteLine("('q' to quit)");
-            string result = null;
 
             do {
                 Console.WriteLine("\nType login :");
@@ -36,20 +37,20 @@ namespace TestClient
                 if (login == "q") continue;
                 if (password == "q") continue;
 
-                WCFInterfaces.STG message = new WCFInterfaces.STG()
+                STG message = new STG()
                 {
                     statut_op = true,
                     info = "connection",
                     data = new object[2] { login, password },
                     operationname = "connection",
-                    tokenApp = "tokenApp",
+                    tokenApp = tokenApp,
                     tokenUser = "tokenUser"
                 };
 
                 try {
-                    result = services.m_service(message);
+                    STG result = services.m_service(message);
                     Console.WriteLine("Result :");
-                    Console.WriteLine(result);
+                    result.Print();
                 }
                 catch {
                     Console.WriteLine("Error !");
