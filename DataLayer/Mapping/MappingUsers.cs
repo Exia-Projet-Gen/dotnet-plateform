@@ -128,7 +128,7 @@ namespace DataLayer.Mapping
             }
             catch (InvalidOperationException)
             {
-                throw;
+                return 0;
             }
         }
 
@@ -145,7 +145,7 @@ namespace DataLayer.Mapping
             {
                 return _bdd.ActionsOnRows(command);
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
                 return 0;
             }

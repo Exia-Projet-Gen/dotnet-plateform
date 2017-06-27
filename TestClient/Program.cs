@@ -21,44 +21,65 @@ namespace TestClient
             services = channelFactory.CreateChannel();
 
             Console.WriteLine("Ready ?");
-            string login = Console.ReadLine();
+            string action = Console.ReadLine();
 
             Console.WriteLine("Endpoint = {0}", channelFactory.Endpoint.Address.ToString());
 
-            string password = null;
+            Console.WriteLine("('l' to login)");
+            Console.WriteLine("('s' to signup)");
             Console.WriteLine("('q' to quit)");
 
             do {
-                Console.WriteLine("\nType login :");
-                login = Console.ReadLine();
-                Console.WriteLine("\nType password :");
-                password = Console.ReadLine();
+                Console.WriteLine("\nChoose an action :");
+                action = Console.ReadLine();
 
-                if (login == "q") continue;
-                if (password == "q") continue;
+                if (action == "q") continue;
 
                 STG message = new STG()
                 {
                     statut_op = true,
-                    info = "login",
-                    data = new object[2] { login, password },
-                    operationname = "login",
+                    info = "",
+                    data = null,
+                    operationname = "",
                     tokenApp = tokenApp,
-                    tokenUser = "tokenUser"
+                    tokenUser = ""
                 };
+
+                if (action == "l")
+                {
+                    Console.WriteLine("Login :");
+                    string username = Console.ReadLine();
+                    Console.WriteLine("Password :");
+                    string password = Console.ReadLine();
+
+                    message.operationname = "login";
+                    message.data = new object[] { username, password };
+                }
+                else if (action == "s")
+                {
+                    Console.WriteLine("Username :");
+                    string username = Console.ReadLine();
+                    Console.WriteLine("Email :");
+                    string email = Console.ReadLine();
+                    Console.WriteLine("Password :");
+                    string password = Console.ReadLine();
+
+                    message.operationname = "signup";
+                    message.data = new object[] { username, email, password };
+                }
 
                 try {
                     STG result = services.m_service(message);
-                    Console.WriteLine("Result :");
+                    Console.WriteLine("\nResult :");
                     result.Print();
                 }
                 catch {
-                    Console.WriteLine("Error !");
+                    Console.WriteLine("\nError !");
                     channelFactory.Abort();
                     throw;
                 }
 
-            } while(login != "q" && password != "q");
+            } while(action != "q");
             
         }
     }

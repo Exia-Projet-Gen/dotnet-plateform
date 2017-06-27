@@ -46,7 +46,7 @@ namespace BusinessLayer
                 throw new NotSupportedException("The hashtype is not supported");
             }
 
-            var splittedHashString = hashedPassword.Replace("$MYHASH$V1$", "").Split('$');
+            var splittedHashString = hashedPassword.Replace("$GENHASH$V1$", "").Split('$');
             var iterations = int.Parse(splittedHashString[0]);
             var base64Hash = splittedHashString[1];
 

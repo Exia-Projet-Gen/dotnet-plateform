@@ -43,6 +43,10 @@ namespace WCFServices
             {
                 response = auth.Login(message);
             }
+            else if(message.operationname == "signup")
+            {
+                response = auth.Signup(message);
+            }
 
             return response;
         }

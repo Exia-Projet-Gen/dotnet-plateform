@@ -18,32 +18,56 @@ namespace BusinessLayer
             mappingUsers = new MappingUsers();
         }
 
-        public void Signup(string username, string email, string password)
+        public STG Signup(STG message)
         {
-            if(mappingUsers.EmailExist(email))
+            string username = message.data[0].ToString();
+            string email = message.data[0].ToString();
+            string password = message.data[0].ToString();
+
+            STG response = new STG()
             {
-                InvalidOperationException ex = new InvalidOperationException("Email already exist !");
-                throw ex;
+                statut_op = false,
+                info = "",
+                data = new object[0] { },
+                operationname = message.operationname,
+                tokenApp = "",
+                tokenUser = message.tokenUser
+            };
+
+            // Verify opetion name
+            if (message.operationname != "signup")
+            {
+                response.info = "Wrong operation name";
+                return response;
             }
 
+            // Check if email is taken
+            if (mappingUsers.EmailExist(email))
+            {
+                response.info = "Email already exist";
+                return response;
+            }
+
+            // Check if username is taken
             if (mappingUsers.UsernameExist(username))
             {
-                InvalidOperationException ex = new InvalidOperationException("Username already exist !");
-                throw ex;
+                response.info = "Username already exist";
+                return response;
             }
 
             string hash = Hasher.Hash(password);
 
             User user = new User(username, email, hash);
 
-            try
+            if(mappingUsers.Insert(user) == 0)
             {
-                mappingUsers.Insert(user);
+                response.info = "Error while creating user";
+                return response;
             }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
+
+            response.statut_op = true;
+            response.info = "registered";
+            return response;
         }
 
         public STG Login(STG message)
