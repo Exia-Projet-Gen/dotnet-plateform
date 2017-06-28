@@ -21,7 +21,6 @@ namespace DataLayer.Database
 
         // Connection informations
         private string _connectionString;
-        private string _bddPath;
         private SqlConnection _bddConnection;
         private SqlDataAdapter _bddDataAdapter;
         private DataTable _datas;
