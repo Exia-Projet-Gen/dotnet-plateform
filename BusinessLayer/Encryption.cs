@@ -22,7 +22,7 @@ namespace BusinessLayer
             return System.Text.Encoding.UTF8.GetString(processed.ToArray());
         }
 
-        public static IEnumerable<string> GenerateKeys(int limit)
+        public static IEnumerable<string> GenerateKeys(int limit, string start = "", string stop = "")
         {
             string current = "";
             string final = "";
@@ -32,6 +32,9 @@ namespace BusinessLayer
                 current += 'a';
                 final += 'z';
             }
+
+            if (start != "") current = start;
+            if (stop != "") final = stop;
 
             yield return current;
 
