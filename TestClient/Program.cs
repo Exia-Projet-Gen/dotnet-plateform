@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using WCFInterfaces;
+using System.Windows.Forms;
+using System.IO;
+using System.Net;
 
 namespace TestClient
 {
@@ -12,8 +11,9 @@ namespace TestClient
     {
         static private ChannelFactory<IServices> channelFactory = null;
         static private IServices services = null;
-        static private string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W"; 
+        static private string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W";
 
+        [STAThread]
         static void Main(string[] args)
         {
             channelFactory = new ChannelFactory<IServices>("tcpConfig");
@@ -66,6 +66,22 @@ namespace TestClient
 
                     message.operationname = "signup";
                     message.data = new object[] { username, email, password };
+                }
+                else if (action =="bf")
+                {
+                    String FileContent = null;
+                    Console.WriteLine("Insérer un document : ");
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.DefaultExt = ".txt";
+                    //ofd.Filter = "Document texte (.txt)/*.txt";
+                    ofd.ShowDialog();
+                    string filename = ofd.FileName;
+                    Console.WriteLine("Document : " + filename);
+                    FileContent = File.ReadAllText(filename);
+                    Console.WriteLine("Content : " + FileContent);
+
+                    message.operationname = "bruteForce";
+                    message.data = new object[] { FileContent };
                 }
 
                 try {

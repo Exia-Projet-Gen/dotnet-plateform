@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer;
+using System.Windows.Forms;
 
 namespace TestEncryption
 {
@@ -12,10 +13,10 @@ namespace TestEncryption
         static void Main(string[] args)
         {
 
-
-            foreach(string s in Encryption.GenerateKeys(4))
+            foreach (string s in Encryption.GenerateKeys(2))
             {
-                Console.WriteLine(s);
+                Encryption.Process("abc", s);
+                Console.WriteLine(Encryption.Process("abc", s));
             }
 
             Console.ReadLine();

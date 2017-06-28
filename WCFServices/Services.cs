@@ -38,6 +38,7 @@ namespace WCFServices
             }
 
             Authentication auth = new Authentication();
+            BruteForce force = new BruteForce();
 
             if(message.operationname == "login")
             {
@@ -46,6 +47,10 @@ namespace WCFServices
             else if(message.operationname == "signup")
             {
                 response = auth.Signup(message);
+            }
+            else if(message.operationname == "bruteForce")
+            {
+                response = force.BruteForceMessages(message);
             }
 
             return response;
