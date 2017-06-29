@@ -5,18 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestClient"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="Connexion">
+      d:DesignHeight="569" d:DesignWidth="792"
+      Title="Connexion" Width="792" Height="569">
 
-    <Grid Background="White" Margin="0,0,-131,-52">
-        <TextBox x:Name="loginBox" HorizontalAlignment="Left" Height="23" Margin="189,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="137"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="24" Margin="189,168,0,0" VerticalAlignment="Top" Width="137"/>
-        <Button x:Name="btnLogin" Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="126,237,0,0" Click="btnLogin_Click"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Height="21" Margin="229,236,0,0" VerticalAlignment="Top" Width="75" Click="btnExit_Click"/>
-        <Label x:Name="Login" Content="Login" HorizontalAlignment="Left" Margin="60,114,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Password" Content="Password" HorizontalAlignment="Left" Margin="60,168,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="result" Content="" HorizontalAlignment="Left" Margin="337,114,0,0" VerticalAlignment="Top" Width="71" Height="32"/>
-        <Label x:Name="labelLogin" Content="Label" HorizontalAlignment="Left" Margin="368,236,0,0" VerticalAlignment="Top"/>
+    <Grid Margin="0" Height="567" VerticalAlignment="Top" HorizontalAlignment="Left" Width="790" Background="#FFF4F4F5">
+
+        <TextBox x:Name="loginBox" HorizontalAlignment="Left" Height="23" Margin="362,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Foreground="Black" SelectionBrush="Black" Background="#FFEEEEEE" BorderThickness="1" BorderBrush="Black" TextChanged="loginBox_TextChanged"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="24" Margin="362,279,0,0" VerticalAlignment="Top" Width="175" Foreground="Black" SelectionBrush="Black" Background="#FFEEEEEE" BorderBrush="Black" PasswordChanged="passwordBox_PasswordChanged"/>
+        <Button x:Name="btnLogin" Content="Log In" HorizontalAlignment="Center" VerticalAlignment="Top" Width="125" Margin="262,370,403,0" Click="btnLogin_Click" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Background="#FFA60000" BorderBrush="Black" Foreground="White" Padding="10" Height="50" Focusable="False"/>
+        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Center" Height="50" Margin="412,370,253,0" VerticalAlignment="Top" Width="125" Click="btnExit_Click" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Background="#FFA60000" BorderBrush="Black" Foreground="White" Padding="10" Focusable="False"/>
+        <Label x:Name="Login" Content="Login" HorizontalAlignment="Left" Margin="255,220,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontWeight="Bold" FontSize="16"/>
+        <Label x:Name="Password" Content="Password" HorizontalAlignment="Left" Margin="255,274,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontWeight="Bold" FontSize="16"/>
+        <Label x:Name="label" Content="Authentication&#xD;&#xA;" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="320,125,276,0" FontWeight="Bold" FontSize="24" Background="#FFF4F4F5" Foreground="#FF7C7C7C" FontFamily="Consolas"/>
+        <Button x:Name="goToInscr" Content="Sign up" HorizontalAlignment="Center" Margin="382,157,334,0" VerticalAlignment="Top" Width="74" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF1530D8" FontFamily="Consolas" FontStyle="Italic" Click="button_Click"/>
+        <Label x:Name="wrongLogin" Content="Wrong login" HorizontalAlignment="Left" Margin="557,226,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontStyle="Italic" FontSize="14" Foreground="Red" Visibility="Collapsed"/>
+        <Label x:Name="wrongPassword" Content="Wrong password" HorizontalAlignment="Left" Margin="557,279,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontStyle="Italic" FontSize="14" Foreground="Red" Visibility="Collapsed"/>
+        <Image x:Name="logoSignIn" HorizontalAlignment="Left" Height="30" Margin="285,130,0,0" VerticalAlignment="Top" Width="30" Source="signin.png"/>
 
     </Grid>
 </Page>

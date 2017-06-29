@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.ServiceModel;
+using WCFInterfaces;
 
 namespace TestClient
 {
@@ -25,54 +14,98 @@ namespace TestClient
         {
             InitializeComponent();
 
-            channelFactory = new ChannelFactory<WCFInterfaces.IServices>(
-                new NetTcpBinding(),
-                "net.tcp://localhost:2605/ServicesWCF");
-
-            services = channelFactory.CreateChannel();
+            MainWindow.channelFactory = new ChannelFactory<IServices>("tcpConfig");
+            MainWindow.services = MainWindow.channelFactory.CreateChannel();
         }
 
-        private ChannelFactory<WCFInterfaces.IServices> channelFactory = null;
-
-        private WCFInterfaces.IServices services = null;
-
+        /// <summary>
+        /// Send and verify login informations --> redirection to sendFilesPage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                String correctLogin = "Rem";
-                String correctPassword = "Pass";
-
-                if (loginBox.Text == correctLogin && passwordBox.Password.ToString() == correctPassword)
+                STG message = new STG()
                 {
-                    result.Content = "Ok";
+                    statut_op = true,
+                    info = "connection",
+                    data = new object[] { loginBox.Text, passwordBox.Password.ToString() },
+                    operationname = "login",
+                    tokenApp = MainWindow.tokenApp
+                };
 
-                    WCFInterfaces.STG message = new WCFInterfaces.STG()
-                    {
-                        statut_op = true,
-                        info = "connection",
-                        data = new object[2] { loginBox.Text, passwordBox.Password.ToString() },
-                        operationname = "connection",
-                        tokenApp = "tokenApp",
-                        tokenUser = "tokenUser"
-                    };
+                //Send login informations
+                STG result = MainWindow.services.m_service(message);
 
-                    labelLogin.Content = services.m_service(message);
-                    SendFiles sendFilesPage = new SendFiles();
-                    this.NavigationService.Navigate(sendFilesPage);
+                //Verif of login informations
+                if (result.statut_op == false && result.info == "Can't find user")
+                {
+                    wrongLogin.Visibility = Visibility.Visible;
                 }
-
+                else if (result.statut_op == false && result.info == "Wrong password")
+                {
+                    wrongPassword.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MainWindow.sendFilesPage.connectedUser.Content = message.data[0];
+                    this.NavigationService.Navigate(MainWindow.sendFilesPage);
+                }
             }
             catch
             {
-                channelFactory.Abort();
+                MainWindow.channelFactory.Abort();
                 throw;
             }
         }
 
+        /// <summary>
+        /// Exit method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            //Window.Close();
+            STG message = new STG()
+            {
+                statut_op = true,
+                info = "signOut",
+                data = new object[] { },
+                operationname = "logout",
+                tokenApp = MainWindow.tokenApp
+            };
+
+            MessageBoxResult resultat;
+
+            resultat = MessageBox.Show("Do you really want to close the App ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (resultat == MessageBoxResult.Yes)
+            {
+                STG result = MainWindow.services.m_service(message);
+                Application.Current.Shutdown();
+            }
+        }
+
+        /// <summary>
+        /// Redirect to the inscription page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(MainWindow.inscriptionPage);
+        }
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            wrongPassword.Visibility = Visibility.Collapsed;
+        }
+
+        private void loginBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            wrongLogin.Visibility = Visibility.Collapsed;
         }
     }
 }
