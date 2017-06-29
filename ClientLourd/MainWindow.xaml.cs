@@ -1,42 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using System.ServiceModel;
-using System.Windows.Forms;
+using WCFInterfaces;
 
 namespace TestClient
 {
     public partial class MainWindow : Window
     {
+
+        public static ChannelFactory<IServices> channelFactory = null;
+        public static IServices services = null;
+
+        public static string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W";
+
+        public static Connexion connexionPage;
+        public static Inscription inscriptionPage;
+        public static SendFiles sendFilesPage;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            System.Windows.MessageBox.Show("Prêt ?");
+            channelFactory = new ChannelFactory<IServices>("tcpConfig");
 
-            channelFactory = new ChannelFactory<WCFInterfaces.IServices>(
-                new NetTcpBinding(),
-                "net.tcp://localhost:2605/ServicesWCF");
+            connexionPage = new Connexion();
+            inscriptionPage = new Inscription();
+            sendFilesPage = new SendFiles();
 
-            Connexion connexionPage = new Connexion();
-            Main.NavigationService.Navigate(connexionPage);
-
-           
+            Main.NavigationService.Navigate(inscriptionPage);
         }
-
-        private ChannelFactory<WCFInterfaces.IServices> channelFactory = null;
-
-        private WCFInterfaces.IServices services = null;
     }
 }
