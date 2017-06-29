@@ -26,7 +26,7 @@ namespace BusinessLayer
 
             var base64Hash = Convert.ToBase64String(hashBytes);
 
-            return string.Format("$MYHASH$V1${0}${1}", iterations, base64Hash);
+            return string.Format("$GENHASH$V1${0}${1}", iterations, base64Hash);
         }
 
         public static string Hash(string password)
@@ -36,7 +36,7 @@ namespace BusinessLayer
 
         public static bool IsHashSupported(string hashString)
         {
-            return hashString.Contains("$MYHASH$V1$");
+            return hashString.Contains("$GENHASH$V1$");
         }
 
         public static bool Verify(string password, string hashedPassword)

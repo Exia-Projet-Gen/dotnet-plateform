@@ -21,8 +21,8 @@ namespace BusinessLayer
         public STG Signup(STG message)
         {
             string username = message.data[0].ToString();
-            string email = message.data[0].ToString();
-            string password = message.data[0].ToString();
+            string email = message.data[1].ToString();
+            string password = message.data[2].ToString();
 
             STG response = new STG()
             {
@@ -41,17 +41,17 @@ namespace BusinessLayer
                 return response;
             }
 
-            // Check if email is taken
-            if (mappingUsers.EmailExist(email))
-            {
-                response.info = "Email already exist";
-                return response;
-            }
-
             // Check if username is taken
             if (mappingUsers.UsernameExist(username))
             {
                 response.info = "Username already exist";
+                return response;
+            }
+
+            // Check if email is taken
+            if (mappingUsers.EmailExist(email))
+            {
+                response.info = "Email already exist";
                 return response;
             }
 
