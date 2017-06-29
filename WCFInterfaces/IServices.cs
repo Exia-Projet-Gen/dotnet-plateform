@@ -12,6 +12,7 @@ namespace WCFInterfaces
     {
         [OperationContract]
         STG m_service(STG message);
+        //STG m_service(object message);
     }
 
     public struct STG

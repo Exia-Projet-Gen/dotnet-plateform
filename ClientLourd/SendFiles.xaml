@@ -5,16 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestClient"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="569" d:DesignWidth="792"
       Title="SendFiles">
 
-    <Grid Background="White" Margin="-85,-12,-146,-52">
-        <Label x:Name="labelBrowse" Content="Open a file" HorizontalAlignment="Left" Margin="126,159,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="boxBrowse" HorizontalAlignment="Left" Height="23" Margin="194,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Text="..." IsEnabled="False"/>
-        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="424,162,0,0" VerticalAlignment="Top" Width="81" Height="23" Click="btnBrowse_Click"/>
-        <Button x:Name="btnSendFiles" Content="Send Files" HorizontalAlignment="Left" Margin="249,236,0,0" VerticalAlignment="Top" Width="75" Click="btnSendFiles_Click"/>
-        <Label x:Name="labelFiles" Content="Label" HorizontalAlignment="Left" Margin="442,308,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="fileBox" HorizontalAlignment="Left" Margin="253,25,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="103" Width="155"/>
+    <Grid Background="#FFF4F4F5" Margin="0" Width="787" Height="567" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Label x:Name="labelBrowse" Content="Choose a file" HorizontalAlignment="Left" Margin="147,268,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="16" FontWeight="Bold"/>
+        <TextBox x:Name="boxBrowse" HorizontalAlignment="Left" Height="23" Margin="276,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" IsEnabled="False" BorderBrush="Black" Background="#FFEEEEEE" TextChanged="boxBrowse_TextChanged"/>
+        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="495,271,0,0" VerticalAlignment="Top" Width="80" Height="23" Click="btnBrowse_Click" BorderBrush="#FF555D78" Background="#FF8995BD" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="14"/>
+        <Button x:Name="btnSendFiles" Content="Decrypt files" HorizontalAlignment="Left" Margin="325,340,0,0" VerticalAlignment="Top" Width="125" Click="btnSendFiles_Click" Height="50" Background="#FFA60000" BorderBrush="Black" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="14"/>
+        <Label x:Name="label" Content="Decryption of files" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="265,137,0,0" FontFamily="Consolas" FontSize="24" FontWeight="Bold" Foreground="#FF7C7C7C"/>
+        <Label x:Name="noFileFounded" Content="Please choose a file to decrypt" HorizontalAlignment="Left" Margin="276,294,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontStyle="Italic" Foreground="Red" Visibility="Collapsed"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Margin="37,34,0,0" Source="user.png" Cursor="Hand"/>
+        <Label x:Name="connectedUser" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="2.763,1.923" Margin="102,49,0,0" FontFamily="Consolas" FontSize="14" FontStyle="Italic" Foreground="#FF00C300"/>
+        <Button x:Name="signOutBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="625,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="signOutBtn_Click">
+            <Image x:Name="signOut" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="signout.png" Cursor="Hand"/>
+        </Button>
+        <Button x:Name="exitBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="700,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="exitBtn_Click">
+            <Image x:Name="powerOff" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="power-off.png" Cursor="Hand" ToolTip="Sign Out"/>
+        </Button>
+        <Label x:Name="enCoursLabel" Content="In progress...&#xD;&#xA;" HorizontalAlignment="Left" Margin="495,347,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" Visibility="Collapsed"/>
 
     </Grid>
 </Page>

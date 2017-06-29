@@ -53,6 +53,8 @@ namespace WCFServices
                 response = force.BruteForceMessages(message);
             }
 
+            response.Print();
+
             return response;
         }
     }

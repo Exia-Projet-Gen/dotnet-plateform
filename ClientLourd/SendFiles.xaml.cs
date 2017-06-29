@@ -1,20 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
+using WCFInterfaces;
 
 namespace TestClient
 {
@@ -24,50 +14,125 @@ namespace TestClient
     public partial class SendFiles : Page
     {
         String FileContent = null;
+        String filename = null;
 
         public SendFiles()
         {
             InitializeComponent();
 
-            channelFactory = new ChannelFactory<WCFInterfaces.IServices>(
-                new NetTcpBinding(),
-                "net.tcp://localhost:2605/ServicesWCF");
-
-            services = channelFactory.CreateChannel();
+            MainWindow.channelFactory = new ChannelFactory<IServices>("tcpConfig");
+            MainWindow.services = MainWindow.channelFactory.CreateChannel();
         }
 
-        private ChannelFactory<WCFInterfaces.IServices> channelFactory = null;
-
-        private WCFInterfaces.IServices services = null;
-
+        /// <summary>
+        /// Search a file in files explorer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = ".txt";
-            //ofd.Filter = "Document texte (.txt)/*.txt";
             if (ofd.ShowDialog() == true)
             {
-                string filename = ofd.FileName;
-                boxBrowse.Text = filename;
+                filename = ofd.FileName;
+                boxBrowse.Text = System.IO.Path.GetFileName(filename);
                 FileContent = File.ReadAllText(filename);
             }
         }
 
+        /// <summary>
+        /// Send files to decrypt platform
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendFiles_Click(object sender, RoutedEventArgs e)
         {
-            fileBox.Text = FileContent;
-
-            WCFInterfaces.STG message = new WCFInterfaces.STG()
+            STG message = new STG()
             {
                 statut_op = true,
                 info = "file",
-                data = new object[1] { FileContent },
-                operationname = "sendFile",
-                tokenApp = "tokenApp",
-                tokenUser = "tokenUser"
+                data = new object[] { Path.GetFileName(filename), FileContent },
+                operationname = "bruteForce",
+                tokenApp = MainWindow.tokenApp
             };
 
-            labelFiles.Content = services.m_service(message);
+            //Verif that there is a file 
+            if(boxBrowse.Text != "")
+            {
+                noFileFounded.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                enCoursLabel.Visibility = Visibility.Visible;
+                STG result = MainWindow.services.m_service(message);
+            }
+        }
+
+        /// <summary>
+        /// Hide error message when there is a file 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void boxBrowse_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            noFileFounded.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Log out function and redirect to log in page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void signOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            STG message = new STG()
+            {
+                statut_op = true,
+                info = "signOut",
+                data = new object[] { },
+                operationname = "logout",
+                tokenApp = MainWindow.tokenApp
+            };
+
+            MessageBoxResult resultat;
+
+            resultat = MessageBox.Show("Do you really want to close the App ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (resultat == MessageBoxResult.Yes)
+            {
+                STG result = MainWindow.services.m_service(message);
+                Connexion connexionPage = new Connexion();
+                this.NavigationService.Navigate(connexionPage);
+            }
+
+        }
+
+        /// <summary>
+        /// Exit application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            STG message = new STG()
+            {
+                statut_op = true,
+                info = "signOut",
+                data = new object[] {},
+                operationname = "logout",
+                tokenApp = MainWindow.tokenApp
+            };
+
+            MessageBoxResult resultat;
+
+            resultat = MessageBox.Show("Do you really want to close the App ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (resultat == MessageBoxResult.Yes)
+            {
+                STG result = MainWindow.services.m_service(message);
+                Application.Current.Shutdown();
+            }
         }
     }
 }
