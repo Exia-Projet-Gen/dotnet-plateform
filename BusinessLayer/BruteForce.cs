@@ -7,61 +7,53 @@ using System.Text;
 using System.Threading.Tasks;
 using WCFInterfaces;
 using System.Web.Script.Serialization;
+using System.Threading;
 
 namespace BusinessLayer
 {
     public class BruteForce
     {
-        public STG BruteForceMessages(STG message)
+        private volatile bool shouldStop = false;
+        private JEE jee;
+        private string file;
+        private string text;
+
+        public BruteForce(STG message)
         {
+            file = message.data[0].ToString();
+            text = message.data[1].ToString();
+            jee = new JEE();
+            ServicePointManager.DefaultConnectionLimit = 1000;
+        }
 
-            message.Print();
+        public void BruteForceMessages()
+        {
+            Console.WriteLine(Encryption.Process(text, "fjuiop"));
 
-            STG response = new STG()
+            HttpWebResponse webResponse;
+
+            foreach (string key in Encryption.GenerateKeys(6, "fjuioa", "fjuioz"))
             {
-                statut_op = false,
-                info = "",
-                data = new object[0] { },
-                operationname = message.operationname,
-                tokenApp = "",
-                tokenUser = message.tokenUser
-            };
+                if (shouldStop) break;
 
-            foreach(string s in Encryption.GenerateKeys(1))
-            {
-                Encryption.Process(message.data[0].ToString(), s);
-                Console.WriteLine(Encryption.Process(message.data[0].ToString(), s));
+                Console.WriteLine("call : {0}", key);
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://10.162.128.199:10080/dictionaryFacade-war/gen/dictionary/decode/");
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "POST";
-
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    string json = new JavaScriptSerializer().Serialize(new
-                    {
-                        decodedText = "Je suis content i am happy to live in france because of arabe all@gmail.com",
-                        keyValue = "128fd",
-                        fileName = "Text01"
-                    }
+                webResponse = jee.sendDecryptedFile(
+                    file,
+                    key,
+                    Encryption.Process(text, key)
                 );
 
-                    streamWriter.Write(json);
-                }
+                int code = (int)webResponse.StatusCode;
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                Console.WriteLine("{0} - {1}", key, code);
+
+                if (code != 202)
                 {
-                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine("Error while bruteforing {0} : JEE Error {1}", file, code);
+                    break;
                 }
             }
-
-
-            response.statut_op = true;
-            response.info = "started";
-
-            return response;
-
         }
     }
 }

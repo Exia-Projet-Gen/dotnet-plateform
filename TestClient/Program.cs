@@ -4,6 +4,7 @@ using WCFInterfaces;
 using System.Windows.Forms;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace TestClient
 {
@@ -22,11 +23,15 @@ namespace TestClient
 
             Console.WriteLine("Ready ?");
             string action = Console.ReadLine();
+            string tokenUser = "";
 
             Console.WriteLine("Endpoint = {0}", channelFactory.Endpoint.Address.ToString());
 
             Console.WriteLine("('l' to login)");
+            Console.WriteLine("('o' to logout)");
             Console.WriteLine("('s' to signup)");
+            Console.WriteLine("('c' to check token user)");
+            Console.WriteLine("('bf' to send file for bruteforce)");
             Console.WriteLine("('q' to quit)");
 
             do {
@@ -39,10 +44,10 @@ namespace TestClient
                 {
                     statut_op = true,
                     info = "",
-                    data = null,
+                    data = new object[] { },
                     operationname = "",
                     tokenApp = tokenApp,
-                    tokenUser = ""
+                    tokenUser = tokenUser
                 };
 
                 if (action == "l")
@@ -67,6 +72,14 @@ namespace TestClient
                     message.operationname = "signup";
                     message.data = new object[] { username, email, password };
                 }
+                else if (action == "c")
+                {
+                    message.operationname = "checkTokenUser";
+                }
+                else if (action == "o")
+                {
+                    message.operationname = "logout";
+                }
                 else if (action =="bf")
                 {
                     String FileContent = null;
@@ -77,15 +90,21 @@ namespace TestClient
                     ofd.ShowDialog();
                     string filename = ofd.FileName;
                     Console.WriteLine("Document : " + filename);
-                    FileContent = File.ReadAllText(filename);
+                    FileContent = File.ReadAllText(filename, Encoding.UTF8);
                     Console.WriteLine("Content : " + FileContent);
 
                     message.operationname = "bruteForce";
-                    message.data = new object[] { FileContent };
+                    message.data = new object[] { Path.GetFileName(filename), FileContent };
                 }
 
                 try {
                     STG result = services.m_service(message);
+
+                    if(result.operationname == "login")
+                    {
+                        tokenUser = result.tokenUser;
+                    }
+
                     Console.WriteLine("\nResult :");
                     result.Print();
                 }
