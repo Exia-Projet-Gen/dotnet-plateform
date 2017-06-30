@@ -36,7 +36,7 @@ namespace TestClient
             if (ofd.ShowDialog() == true)
             {
                 filename = ofd.FileName;
-                boxBrowse.Text = System.IO.Path.GetFileName(filename);
+                boxBrowse.Text = Path.GetFileName(filename);
                 FileContent = File.ReadAllText(filename);
             }
         }
@@ -58,7 +58,7 @@ namespace TestClient
             };
 
             //Verif that there is a file 
-            if(boxBrowse.Text != "")
+            if(boxBrowse.Text == "")
             {
                 noFileFounded.Visibility = Visibility.Visible;
             }
