@@ -71,6 +71,17 @@ namespace DataLayer.Mapping
             else return false;
         }
 
+        // Check token
+        public bool VerifyTokenUser(string token)
+        {
+            string query = "SELECT * FROM Users WHERE tokenUser = @TOKEN";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("TOKEN", token);
+
+            if (_bdd.SelectRows(command).Rows.Count > 0) return true;
+            else return false;
+        }
+
         public string getUserHashedPassword(string username)
         {
             string query = "SELECT password FROM Users WHERE username = @USERNAME";
@@ -140,6 +151,24 @@ namespace DataLayer.Mapping
 
             command.Parameters.AddWithValue("TOKEN", tokenUser);
             command.Parameters.AddWithValue("ID",id);
+
+            try
+            {
+                return _bdd.ActionsOnRows(command);
+            }
+            catch (InvalidOperationException)
+            {
+                return 0;
+            }
+        }
+
+        // Remove tokenUser
+        public int RemoveTokenUser(string tokenUser)
+        {
+            string query = "UPDATE Users SET tokenUser = NULL WHERE tokenUser = @TOKEN";
+            SqlCommand command = new SqlCommand(query);
+
+            command.Parameters.AddWithValue("TOKEN", tokenUser);
 
             try
             {

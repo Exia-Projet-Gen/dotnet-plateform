@@ -26,11 +26,11 @@ namespace WCFInterfaces
 
         public void Print()
         {
-            Console.WriteLine(statut_op);
-            Console.WriteLine(info);
-            Console.WriteLine(operationname);
-            Console.WriteLine(tokenUser);
-            Console.WriteLine(tokenApp);
+            Console.WriteLine("Statut_op : {0}", statut_op);
+            Console.WriteLine("Info : {0}", info);
+            Console.WriteLine("OperationName : {0}", operationname);
+            Console.WriteLine("TokenUser : {0}", tokenUser);
+            Console.WriteLine("TokenApp : {0}", tokenApp);
             Console.WriteLine("Datas :");
             foreach (var i in data)
             {

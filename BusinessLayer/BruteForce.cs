@@ -7,61 +7,74 @@ using System.Text;
 using System.Threading.Tasks;
 using WCFInterfaces;
 using System.Web.Script.Serialization;
+using System.Threading;
 
 namespace BusinessLayer
 {
     public class BruteForce
     {
-        public STG BruteForceMessages(STG message)
+        private static Dictionary<string, bool> stopBFs = new Dictionary<string, bool>();
+
+        private JEE jee;
+        private string file;
+        private string text;
+
+        public BruteForce(STG message)
         {
+            file = message.data[0].ToString();
+            text = message.data[1].ToString();
+            jee = new JEE();
+            ServicePointManager.DefaultConnectionLimit = 1000;
 
-            message.Print();
-
-            STG response = new STG()
+            if(stopBFs.ContainsKey(file))
             {
-                statut_op = false,
-                info = "",
-                data = new object[0] { },
-                operationname = message.operationname,
-                tokenApp = "",
-                tokenUser = message.tokenUser
-            };
-
-            foreach(string s in Encryption.GenerateKeys(1))
+                stopBFs[file] = false;
+            }
+            else
             {
-                Encryption.Process(message.data[0].ToString(), s);
-                Console.WriteLine(Encryption.Process(message.data[0].ToString(), s));
+                stopBFs.Add(file, false);
+            }
+        }
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://10.162.128.199:10080/dictionaryFacade-war/gen/dictionary/decode/");
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "POST";
+        public static void StopBruteForce(string file)
+        {
+            stopBFs[file] = true;
+        }
 
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        public void BruteForceMessages()
+        {
+            Console.WriteLine("Start thread for file {0}", file);
+
+            HttpWebResponse webResponse;
+
+            foreach (string key in Encryption.GenerateKeys(6, "fjuioa", "hjuioz"))
+            {
+                if (stopBFs[file])
                 {
-                    string json = new JavaScriptSerializer().Serialize(new
-                    {
-                        decodedText = "Je suis content i am happy to live in france because of arabe all@gmail.com",
-                        keyValue = "128fd",
-                        fileName = "Text01"
-                    }
-                );
-
-                    streamWriter.Write(json);
+                    Console.WriteLine("JEE ask to stop thread for file {0}", file);
+                    break;
                 }
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                Console.WriteLine("call : {0}", key);
+
+                webResponse = jee.sendDecryptedFile(
+                    file,
+                    key,
+                    Encryption.Process(text, key)
+                );
+
+                int code = (int)webResponse.StatusCode;
+
+                Console.WriteLine("{0} - {1}", key, code);
+
+                if (code != 202)
                 {
-                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine("Error while bruteforing {0} : JEE Error {1}", file, code);
+                    break;
                 }
             }
 
-
-            response.statut_op = true;
-            response.info = "started";
-
-            return response;
-
+            Console.WriteLine("Stop thread for file {0}", file);
         }
     }
 }

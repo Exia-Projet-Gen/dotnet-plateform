@@ -125,5 +125,44 @@ namespace BusinessLayer
 
             return response;
         }
+
+        // Verify if token is in database
+        public bool VerifyTokenUser(string token)
+        {
+            return mappingUsers.VerifyTokenUser(token);
+        }
+
+        // Logout by removing token user
+        public STG Logout(STG message)
+        {
+            STG response = new STG()
+            {
+                statut_op = false,
+                info = "",
+                data = new object[0] { },
+                operationname = message.operationname,
+                tokenApp = "",
+                tokenUser = message.tokenUser
+            };
+
+            // Verify opetion name
+            if (message.operationname != "logout")
+            {
+                response.info = "Wrong operation name";
+                return response;
+            }
+
+            // Put new tokenUser in database
+            if (mappingUsers.RemoveTokenUser(message.tokenUser) == 0)
+            {
+                response.info = "Unknown token user";
+                return response;
+            }
+
+            response.statut_op = true;
+            response.info = "logout";
+            response.tokenUser = "";
+            return response;
+        }
     }
 }
