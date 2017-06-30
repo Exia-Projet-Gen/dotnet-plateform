@@ -40,6 +40,13 @@ namespace WCFServices
                 return response;
             }
 
+            if(message.operationname == "stopBruteForce")
+            {
+                BruteForce.StopBruteForce(message.data[1].ToString());
+                response.statut_op = true;
+                return response;
+            }
+
             Authentication auth = new Authentication();
 
             if(message.operationname == "login")
@@ -75,7 +82,6 @@ namespace WCFServices
                 Thread workerThread = new Thread(workerObject.BruteForceMessages);
 
                 workerThread.Start();
-                Console.WriteLine("Start thread for file {0}", message.data[0].ToString());
                 while (!workerThread.IsAlive);
 
                 response.statut_op = true;

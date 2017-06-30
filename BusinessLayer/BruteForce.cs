@@ -13,7 +13,8 @@ namespace BusinessLayer
 {
     public class BruteForce
     {
-        private volatile bool shouldStop = false;
+        private static Dictionary<string, bool> stopBFs = new Dictionary<string, bool>();
+
         private JEE jee;
         private string file;
         private string text;
@@ -24,17 +25,35 @@ namespace BusinessLayer
             text = message.data[1].ToString();
             jee = new JEE();
             ServicePointManager.DefaultConnectionLimit = 1000;
+
+            if(stopBFs.ContainsKey(file))
+            {
+                stopBFs[file] = false;
+            }
+            else
+            {
+                stopBFs.Add(file, false);
+            }
+        }
+
+        public static void StopBruteForce(string file)
+        {
+            stopBFs[file] = true;
         }
 
         public void BruteForceMessages()
         {
-            Console.WriteLine(Encryption.Process(text, "fjuiop"));
+            Console.WriteLine("Start thread for file {0}", file);
 
             HttpWebResponse webResponse;
 
-            foreach (string key in Encryption.GenerateKeys(6, "fjuioa", "fjuioz"))
+            foreach (string key in Encryption.GenerateKeys(6, "fjuioa", "hjuioz"))
             {
-                if (shouldStop) break;
+                if (stopBFs[file])
+                {
+                    Console.WriteLine("JEE ask to stop thread for file {0}", file);
+                    break;
+                }
 
                 Console.WriteLine("call : {0}", key);
 
@@ -54,6 +73,8 @@ namespace BusinessLayer
                     break;
                 }
             }
+
+            Console.WriteLine("Stop thread for file {0}", file);
         }
     }
 }
