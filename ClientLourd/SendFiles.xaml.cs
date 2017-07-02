@@ -48,6 +48,9 @@ namespace TestClient
         /// <param name="e"></param>
         private void btnSendFiles_Click(object sender, RoutedEventArgs e)
         {
+
+            MainWindow.displayResultsPage.comboBox.Items.Clear();
+
             STG message = new STG()
             {
                 statut_op = true,

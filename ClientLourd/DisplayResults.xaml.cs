@@ -96,6 +96,8 @@ namespace ClientLourd
         /// <param name="e"></param>
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
         {
+            comboBox.Items.Clear();
+
             STG message = new STG()
             {
                 statut_op = true,
@@ -151,6 +153,8 @@ namespace ClientLourd
             {
                 keyBox.Clear();
                 contentBox.Clear();
+                pourcentageBox.Clear();
+                EmailBox.Clear();
             }
         }
     }
