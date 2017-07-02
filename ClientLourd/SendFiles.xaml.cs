@@ -58,16 +58,26 @@ namespace TestClient
                 tokenUser = MainWindow.tokenUser
             };
 
+            //STG message2 = new STG()
+            //{
+            //    statut_op = true,
+            //    info = "getAll",
+            //    data = new object[] {},
+            //    operationname = "list",
+            //    tokenApp = MainWindow.tokenApp,
+            //    tokenUser = MainWindow.tokenUser
+            //};
+
             //Verif that there is a file 
-            if(boxBrowse.Text == "")
+            if (boxBrowse.Text == "")
             {
                 noFileFounded.Visibility = Visibility.Visible;
             }
             else
             {
-                enCoursLabel.Visibility = Visibility.Visible;
-                STG result = MainWindow.services.m_service(message);
                 this.NavigationService.Navigate(MainWindow.displayResultsPage);
+                STG result = MainWindow.services.m_service(message);
+                //STG result2 = MainWindow.services.m_service(message2);
             }
         }
 
@@ -100,12 +110,12 @@ namespace TestClient
 
             MessageBoxResult resultat;
 
-            resultat = MessageBox.Show("Do you really want to close the App ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            resultat = MessageBox.Show("Do you really want to sign out the App ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (resultat == MessageBoxResult.Yes)
             {
-                STG result = MainWindow.services.m_service(message);
                 this.NavigationService.Navigate(MainWindow.connexionPage);
+                STG result = MainWindow.services.m_service(message);
             }
 
         }
@@ -136,6 +146,11 @@ namespace TestClient
                 STG result = MainWindow.services.m_service(message);
                 Application.Current.Shutdown();
             }
+        }
+
+        private void seeResultsbtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(MainWindow.displayResultsPage);
         }
     }
 }

@@ -39,12 +39,12 @@ namespace ClientLourd
                 data = new object[] { },
                 operationname = "logout",
                 tokenApp = MainWindow.tokenApp,
-                tokenUser = ""
+                tokenUser = MainWindow.tokenUser
             };
 
             MessageBoxResult resultat;
 
-            resultat = MessageBox.Show("Do you really want to close the App ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            resultat = MessageBox.Show("Do you really want to sign out ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (resultat == MessageBoxResult.Yes)
             {
@@ -67,7 +67,8 @@ namespace ClientLourd
                 info = "signOut",
                 data = new object[] { },
                 operationname = "logout",
-                tokenApp = MainWindow.tokenApp
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
             };
 
             MessageBoxResult resultat;
@@ -79,6 +80,50 @@ namespace ClientLourd
                 STG result = MainWindow.services.m_service(message);
                 Application.Current.Shutdown();
             }
+        }
+
+        private void refreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            STG message = new STG()
+            {
+                statut_op = true,
+                info = "",
+                data = new object[] { },
+                operationname = "list",
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
+            };
+
+            STG result = MainWindow.services.m_service(message);
+
+            for (int i = 0; i< result.data.Length; i +=2)
+            {
+                comboBox.Items.Add(result.data[i]);
+            }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            String filenameSelected = comboBox.SelectedItem.ToString();
+
+            STG message = new STG()
+            {
+                statut_op = true,
+                info = "",
+                data = new object[] { filenameSelected },
+                operationname = "result",
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
+            };
+
+            STG result = MainWindow.services.m_service(message);
+
+
+            statusLabel.Visibility = Visibility.Visible;
+
+            keyBox.Text = result.data[1].ToString();
+            statusLabel.Content = result.info;
+            contentBox.Text = result.data[2].ToString();
         }
     }
 }

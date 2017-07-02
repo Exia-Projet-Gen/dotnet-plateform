@@ -12,13 +12,12 @@ namespace TestClient
 
         public static string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W";
         public static string tokenUser;
+        public static string userConnected;
 
         public static Connexion connexionPage;
         public static Inscription inscriptionPage;
         public static SendFiles sendFilesPage;
         public static ClientLourd.DisplayResults displayResultsPage;
-
-        public static string tokenUser;
 
         public MainWindow()
         {
@@ -29,6 +28,7 @@ namespace TestClient
             connexionPage = new Connexion();
             inscriptionPage = new Inscription();
             sendFilesPage = new SendFiles();
+            displayResultsPage = new ClientLourd.DisplayResults();
 
             Main.NavigationService.Navigate(inscriptionPage);
         }

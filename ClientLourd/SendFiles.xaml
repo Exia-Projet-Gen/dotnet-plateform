@@ -12,7 +12,7 @@
         <Label x:Name="labelBrowse" Content="Choose a file" HorizontalAlignment="Left" Margin="147,268,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="16" FontWeight="Bold"/>
         <TextBox x:Name="boxBrowse" HorizontalAlignment="Left" Height="23" Margin="276,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" IsEnabled="False" BorderBrush="Black" Background="#FFEEEEEE" TextChanged="boxBrowse_TextChanged"/>
         <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="495,271,0,0" VerticalAlignment="Top" Width="80" Height="23" Click="btnBrowse_Click" BorderBrush="#FF555D78" Background="#FF8995BD" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="14"/>
-        <Button x:Name="btnSendFiles" Content="Decrypt files" HorizontalAlignment="Left" Margin="325,340,0,0" VerticalAlignment="Top" Width="125" Click="btnSendFiles_Click" Height="50" Background="#FFA60000" BorderBrush="Black" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="14"/>
+        <Button x:Name="btnSendFiles" Content="Decrypt files" HorizontalAlignment="Left" Margin="265,330,0,0" VerticalAlignment="Top" Width="125" Click="btnSendFiles_Click" Height="50" Background="#FFA60000" BorderBrush="Black" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="14"/>
         <Label x:Name="label" Content="Decryption of files" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="265,137,0,0" FontFamily="Consolas" FontSize="24" FontWeight="Bold" Foreground="#FF7C7C7C"/>
         <Label x:Name="noFileFounded" Content="Please choose a file to decrypt" HorizontalAlignment="Left" Margin="276,294,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontStyle="Italic" Foreground="Red" Visibility="Collapsed"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Margin="37,34,0,0" Source="user.png" Cursor="Hand"/>
@@ -24,6 +24,7 @@
             <Image x:Name="powerOff" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="power-off.png" Cursor="Hand" ToolTip="Sign Out"/>
         </Button>
         <Label x:Name="enCoursLabel" Content="In progress...&#xD;&#xA;" HorizontalAlignment="Left" Margin="495,347,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" Visibility="Collapsed"/>
+        <Button x:Name="seeResultsbtn" Content="See results" HorizontalAlignment="Left" Margin="415,330,0,0" VerticalAlignment="Top" Width="125" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Background="#FFA60000" BorderBrush="Black" Foreground="White" Height="50" Click="seeResultsbtn_Click"/>
 
     </Grid>
 </Page>

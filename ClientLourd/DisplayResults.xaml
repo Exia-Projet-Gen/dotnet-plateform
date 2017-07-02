@@ -10,8 +10,6 @@
 
     <Grid>
         <Label x:Name="label" Content="Results" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,92,0,0" FontFamily="Consolas" FontSize="24" FontWeight="Bold" Foreground="#FF7C7C7C"/>
-        <DataGrid x:Name="dataGridFilename" HorizontalAlignment="Left" Height="285" Margin="90,190,0,0" VerticalAlignment="Top" Width="210" IsSynchronizedWithCurrentItem="True" HeadersVisibility="None" SelectionChanged="dataGridFilename_SelectionChanged" FontFamily="Consolas"/>
-        <DataGrid x:Name="dataGridResults" HorizontalAlignment="Left" Height="285" Margin="380,190,0,0" VerticalAlignment="Top" Width="355" HeadersVisibility="None" FontFamily="Consolas"/>
         <Label x:Name="labelFilenames" Content="Filenames" HorizontalAlignment="Left" Margin="154,159,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="labelResults" Content="Results (key and content)" HorizontalAlignment="Left" Margin="470,159,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
         <Button x:Name="signOutBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="625,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="signOutBtn_Click">
@@ -23,7 +21,12 @@
         <Image x:Name="image" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Margin="37,34,0,0" Source="user.png" Cursor="Hand"/>
         <Label x:Name="connectedUser" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="2.763,1.923" Margin="102,49,0,0" FontFamily="Consolas" FontSize="14" FontStyle="Italic" Foreground="#FF00C300"/>
         <Button x:Name="backBtn" Content="Go back" HorizontalAlignment="Left" Margin="55,503,0,0" VerticalAlignment="Top" Width="125" Background="#FFA60000" BorderBrush="Black" Foreground="White" FontFamily="Consolas" FontSize="14" Height="50" Click="backBtn_Click"/>
-        <Button x:Name="refreshBtn" Content="Refresh" HorizontalAlignment="Left" Margin="280,503,0,0" VerticalAlignment="Top" Width="125" Foreground="White" BorderBrush="Black" Background="#FFA60000" Height="50" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="refreshBtn" Content="Refresh" HorizontalAlignment="Left" Margin="280,503,0,0" VerticalAlignment="Top" Width="125" Foreground="White" BorderBrush="Black" Background="#FFA60000" Height="50" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Click="refreshBtn_Click"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="130,210,0,0" VerticalAlignment="Top" Width="125" SelectionChanged="comboBox_SelectionChanged" BorderBrush="Black" FontFamily="Consolas" Height="25" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="keyBox" HorizontalAlignment="Left" Height="23" Margin="460,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" IsEnabled="False"/>
+        <TextBox x:Name="contentBox" HorizontalAlignment="Left" Height="140" Margin="460,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" IsEnabled="False"/>
+        <Label x:Name="label1" Content="Status" HorizontalAlignment="Left" Margin="324,159,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="statusLabel" Content="Status" HorizontalAlignment="Left" Margin="324,212,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" Visibility="Collapsed"/>
 
     </Grid>
 </Page>
