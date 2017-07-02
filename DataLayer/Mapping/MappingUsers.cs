@@ -84,6 +84,26 @@ namespace DataLayer.Mapping
             else return "";
         }
 
+        // Get user email
+        public string GetEmail(string username)
+        {
+            string query = "SELECT email FROM Users WHERE username = @USERNAME";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("USERNAME", username);
+
+            DataRowCollection rows = _bdd.SelectRows(command).Rows;
+
+            try
+            {
+                return rows[0]["email"].ToString();
+            }
+            catch (InvalidOperationException)
+            {
+                InvalidOperationException ex = new InvalidOperationException("Can't find user");
+                throw ex;
+            }
+        }
+
         public string getUserHashedPassword(string username)
         {
             string query = "SELECT password FROM Users WHERE username = @USERNAME";

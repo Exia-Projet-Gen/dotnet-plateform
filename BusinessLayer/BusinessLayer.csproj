@@ -48,6 +48,7 @@
     <Compile Include="Files.cs" />
     <Compile Include="Hasher.cs" />
     <Compile Include="JEE.cs" />
+    <Compile Include="Mailer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
