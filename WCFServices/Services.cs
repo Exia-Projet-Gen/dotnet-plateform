@@ -99,8 +99,11 @@ namespace WCFServices
                 response = files.GetResult(message, username);
                 return response;
             }
-
-            response.Print();
+            else if (message.operationname == "list")
+            {
+                response = files.GetAll(message, username);
+                return response;
+            }
 
             return response;
         }

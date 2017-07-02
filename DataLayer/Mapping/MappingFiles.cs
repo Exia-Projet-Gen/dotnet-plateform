@@ -41,6 +41,30 @@ namespace DataLayer.Mapping
             return Select(command);
         }
 
+        // SELECT all users' files
+        public List<File> SelectAllFile(string username)
+        {
+            string query = "SELECT filename, state FROM Files WHERE username = @USERNAME";
+            SqlCommand command = new SqlCommand(query);
+
+            command.Parameters.AddWithValue("USERNAME", username);
+
+            List<File> files = new List<File>();
+            File file;
+
+            // Mappage de la DataTable récupérée dans une liste d'objet Plan
+            foreach (DataRow row in _bdd.SelectRows(command).Rows)
+            {
+                file = new File(row["filename"].ToString(),
+                                row["state"].ToString()
+                );
+
+                files.Add(file);
+            }
+
+            return files;
+        }
+
         // Handle SELECT request
         private List<File> Select(SqlCommand command)
         {

@@ -33,6 +33,7 @@ namespace TestClient
             Console.WriteLine("('c' to check token user)");
             Console.WriteLine("('bf' to send file for bruteforce)");
             Console.WriteLine("('r' to ask for file results)");
+            Console.WriteLine("('g' to get the list of your files)");
             Console.WriteLine("('q' to quit)");
 
             do {
@@ -104,6 +105,11 @@ namespace TestClient
 
                     message.operationname = "result";
                     message.data = new object[] { file };
+                }
+                else if (action == "g")
+                {
+                    message.operationname = "list";
+                    message.data = new object[] { };
                 }
 
                 try {

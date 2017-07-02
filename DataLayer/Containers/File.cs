@@ -86,6 +86,13 @@ namespace DataLayer.Containers
             _id = 0;
         }
 
+        public File(string filename, string state)
+        {
+            _filename = filename;
+            _state = state;
+        }
+
+
         public File(string filename, string username, string state)
         {
             _filename = filename;

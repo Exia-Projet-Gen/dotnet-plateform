@@ -53,6 +53,31 @@ namespace BusinessLayer
             return response;
         }
 
+        public STG GetAll(STG message, string username)
+        {
+            STG response = new STG()
+            {
+                statut_op = true,
+                info = "",
+                data = new object[0] { },
+                operationname = message.operationname,
+                tokenApp = "",
+                tokenUser = message.tokenUser
+            };
+
+            List<File> files = mappingFiles.SelectAllFile(username);
+
+            response.data = new object[files.Count * 2];
+
+            for(int i = 0; i < files.Count; i++)
+            {
+                response.data[i * 2] = files[i].Filename;
+                response.data[i * 2 + 1] = files[i].State;
+            }
+
+            return response;
+        }
+
         public void createFileInDatabase(string file, string user)
         {
             if (!mappingFiles.FileExistForUser(file, user))
