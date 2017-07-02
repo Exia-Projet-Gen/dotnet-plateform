@@ -123,6 +123,11 @@ namespace ClientLourd
         /// <param name="e"></param>
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(comboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
             String filenameSelected = comboBox.SelectedItem.ToString();
 
             STG message = new STG()

@@ -56,7 +56,7 @@ namespace BusinessLayer
 
             HttpWebResponse webResponse;
 
-            foreach (string key in Encryption.GenerateKeys(6, "fjuioa", "hjuioz"))
+            foreach (string key in Encryption.GenerateKeys(6, "fjuaaa", "hjuioz"))
             {
                 if (stopBFs[file])
                 {
@@ -64,7 +64,7 @@ namespace BusinessLayer
                     break;
                 }
 
-                Console.WriteLine("call : {0}", key);
+                Console.Write("call : {0} | ", key);
 
                 /*
                 webResponse = jee.sendDecryptedFile(
@@ -77,7 +77,7 @@ namespace BusinessLayer
                 */
                 int code = 202;
 
-                Console.WriteLine("{0} - {1}", key, code);
+                Console.Write("{0} - {1}\n", key, code);
 
                 if (code != 202)
                 {
