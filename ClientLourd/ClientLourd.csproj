@@ -57,10 +57,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DisplayResults.xaml.cs">
+      <DependentUpon>DisplayResults.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SendFiles.xaml.cs">
       <DependentUpon>SendFiles.xaml</DependentUpon>
     </Compile>
     <Page Include="Connexion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DisplayResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

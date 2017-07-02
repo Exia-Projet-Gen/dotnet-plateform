@@ -1,0 +1,29 @@
+﻿<Page x:Class="ClientLourd.DisplayResults"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ClientLourd"
+      mc:Ignorable="d" 
+      d:DesignHeight="569" d:DesignWidth="792"
+      Title="DisplayResults" Background="#FFF4F4F5">
+
+    <Grid>
+        <Label x:Name="label" Content="Results" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,92,0,0" FontFamily="Consolas" FontSize="24" FontWeight="Bold" Foreground="#FF7C7C7C"/>
+        <DataGrid x:Name="dataGridFilename" HorizontalAlignment="Left" Height="285" Margin="90,190,0,0" VerticalAlignment="Top" Width="210" IsSynchronizedWithCurrentItem="True" HeadersVisibility="None" SelectionChanged="dataGridFilename_SelectionChanged" FontFamily="Consolas"/>
+        <DataGrid x:Name="dataGridResults" HorizontalAlignment="Left" Height="285" Margin="380,190,0,0" VerticalAlignment="Top" Width="355" HeadersVisibility="None" FontFamily="Consolas"/>
+        <Label x:Name="labelFilenames" Content="Filenames" HorizontalAlignment="Left" Margin="154,159,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="labelResults" Content="Results (key and content)" HorizontalAlignment="Left" Margin="470,159,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="signOutBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="625,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="signOutBtn_Click">
+            <Image x:Name="signOut" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="signout.png" Cursor="Hand"/>
+        </Button>
+        <Button x:Name="exitBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="700,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="exitBtn_Click">
+            <Image x:Name="powerOff" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Source="power-off.png" Cursor="Hand" ToolTip="Sign Out"/>
+        </Button>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Margin="37,34,0,0" Source="user.png" Cursor="Hand"/>
+        <Label x:Name="connectedUser" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="2.763,1.923" Margin="102,49,0,0" FontFamily="Consolas" FontSize="14" FontStyle="Italic" Foreground="#FF00C300"/>
+        <Button x:Name="backBtn" Content="Go back" HorizontalAlignment="Left" Margin="55,503,0,0" VerticalAlignment="Top" Width="125" Background="#FFA60000" BorderBrush="Black" Foreground="White" FontFamily="Consolas" FontSize="14" Height="50" Click="backBtn_Click"/>
+        <Button x:Name="refreshBtn" Content="Refresh" HorizontalAlignment="Left" Margin="280,503,0,0" VerticalAlignment="Top" Width="125" Foreground="White" BorderBrush="Black" Background="#FFA60000" Height="50" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+
+    </Grid>
+</Page>

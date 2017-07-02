@@ -16,6 +16,9 @@ namespace TestClient
         public static Connexion connexionPage;
         public static Inscription inscriptionPage;
         public static SendFiles sendFilesPage;
+        public static ClientLourd.DisplayResults displayResultsPage;
+
+        public static string tokenUser;
 
         public MainWindow()
         {

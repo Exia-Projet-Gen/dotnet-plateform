@@ -54,7 +54,7 @@ namespace TestClient
                     MainWindow.tokenUser = result.tokenUser;
                     this.NavigationService.Navigate(MainWindow.sendFilesPage);
                 }
-            }
+            } 
             catch
             {
                 MainWindow.channelFactory.Abort();

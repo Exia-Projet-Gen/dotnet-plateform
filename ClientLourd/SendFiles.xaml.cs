@@ -67,6 +67,7 @@ namespace TestClient
             {
                 enCoursLabel.Visibility = Visibility.Visible;
                 STG result = MainWindow.services.m_service(message);
+                this.NavigationService.Navigate(MainWindow.displayResultsPage);
             }
         }
 
@@ -104,8 +105,7 @@ namespace TestClient
             if (resultat == MessageBoxResult.Yes)
             {
                 STG result = MainWindow.services.m_service(message);
-                Connexion connexionPage = new Connexion();
-                this.NavigationService.Navigate(connexionPage);
+                this.NavigationService.Navigate(MainWindow.connexionPage);
             }
 
         }
