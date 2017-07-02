@@ -77,12 +77,17 @@ namespace DataLayer.Mapping
                 file = new File(int.Parse(row["id"].ToString()),
                                 row["filename"].ToString(),
                                 row["username"].ToString(),
-                                row["state"].ToString(),
-                                row["text"].ToString(),
-                                row["bfkey"].ToString(),
-                                double.Parse(row["bfpercent"].ToString()),
-                                row["email"].ToString()
+                                row["state"].ToString()
+                                
                 );
+
+                if(file.State == "finish")
+                {
+                    file.Text = row["text"].ToString();
+                    file.Key = row["bfkey"].ToString();
+                    file.Percent = double.Parse(row["bfpercent"].ToString());
+                    file.Email = row["email"].ToString();
+                }
 
                 files.Add(file);
             }
