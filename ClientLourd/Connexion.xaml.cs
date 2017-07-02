@@ -50,7 +50,7 @@ namespace TestClient
                 }
                 else
                 {
-                    message.data[0] = MainWindow.userConnected;
+                    MainWindow.userConnected = message.data[0].ToString();
 
                     MainWindow.sendFilesPage.connectedUser.Content = MainWindow.userConnected;
                     MainWindow.displayResultsPage.connectedUser.Content = MainWindow.userConnected;

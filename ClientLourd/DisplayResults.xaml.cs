@@ -21,10 +21,17 @@ namespace ClientLourd
             MainWindow.services = MainWindow.channelFactory.CreateChannel();
         }
 
+        /// <summary>
+        /// Go back button to return to the send files page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.sendFilesPage.boxBrowse.Clear();
             this.NavigationService.Navigate(MainWindow.sendFilesPage);
         }
+
         /// <summary>
         /// Log out function and redirect to log in page
         /// </summary>
@@ -82,6 +89,11 @@ namespace ClientLourd
             }
         }
 
+        /// <summary>
+        /// Refresh the page to see if there is changes on the progress of the files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
         {
             STG message = new STG()
@@ -102,6 +114,11 @@ namespace ClientLourd
             }
         }
 
+        /// <summary>
+        /// When another file is selected see the results and the progress
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             String filenameSelected = comboBox.SelectedItem.ToString();
@@ -121,9 +138,18 @@ namespace ClientLourd
 
             statusLabel.Visibility = Visibility.Visible;
 
-            keyBox.Text = result.data[1].ToString();
             statusLabel.Content = result.info;
-            contentBox.Text = result.data[2].ToString();
+
+            if(result.info == "finish")
+            {
+                keyBox.Text = result.data[1].ToString();
+                contentBox.Text = result.data[2].ToString();
+            }
+            else if(result.info == "progress")
+            {
+                keyBox.Clear();
+                contentBox.Clear();
+            }
         }
     }
 }

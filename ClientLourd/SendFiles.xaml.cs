@@ -58,15 +58,15 @@ namespace TestClient
                 tokenUser = MainWindow.tokenUser
             };
 
-            //STG message2 = new STG()
-            //{
-            //    statut_op = true,
-            //    info = "getAll",
-            //    data = new object[] {},
-            //    operationname = "list",
-            //    tokenApp = MainWindow.tokenApp,
-            //    tokenUser = MainWindow.tokenUser
-            //};
+            STG message2 = new STG()
+            {
+                statut_op = true,
+                info = "getAll",
+                data = new object[] {},
+                operationname = "list",
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
+            };
 
             //Verif that there is a file 
             if (boxBrowse.Text == "")
@@ -75,9 +75,16 @@ namespace TestClient
             }
             else
             {
-                this.NavigationService.Navigate(MainWindow.displayResultsPage);
                 STG result = MainWindow.services.m_service(message);
-                //STG result2 = MainWindow.services.m_service(message2);
+                STG result2 = MainWindow.services.m_service(message2);
+
+                for (int i = 0; i < result2.data.Length; i += 2)
+                {
+                    MainWindow.displayResultsPage.comboBox.Items.Add(result2.data[i]);
+                }
+
+                this.NavigationService.Navigate(MainWindow.displayResultsPage);
+
             }
         }
 
@@ -150,6 +157,22 @@ namespace TestClient
 
         private void seeResultsbtn_Click(object sender, RoutedEventArgs e)
         {
+            STG message = new STG()
+            {
+                statut_op = true,
+                info = "",
+                data = new object[] { },
+                operationname = "list",
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
+            };
+
+            STG result = MainWindow.services.m_service(message);
+
+            for (int i = 0; i < result.data.Length; i += 2)
+            {
+                MainWindow.displayResultsPage.comboBox.Items.Add(result.data[i]);
+            }
             this.NavigationService.Navigate(MainWindow.displayResultsPage);
         }
     }
