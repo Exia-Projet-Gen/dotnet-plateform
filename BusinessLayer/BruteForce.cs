@@ -17,6 +17,7 @@ namespace BusinessLayer
         private static Dictionary<string, bool> stopBFs = new Dictionary<string, bool>();
         private static Dictionary<string, STG> infoBfs = new Dictionary<string, STG>();
         private static Files files = new Files();
+        private static Mailer mailer = new Mailer();
 
         private JEE jee;
         private string file;
@@ -71,7 +72,7 @@ namespace BusinessLayer
                     key,
                     Encryption.Process(text, key)
                 );
-
+                
                 int code = (int)webResponse.StatusCode;
                 */
                 int code = 202;
@@ -88,6 +89,7 @@ namespace BusinessLayer
             Console.WriteLine("Stop thread for file {0}", file);
 
             files.StoreFileResult(file, user, infoBfs[file]);
+            mailer.SendResultMail(file, user, infoBfs[file]);
         }
     }
 }
