@@ -144,6 +144,8 @@ namespace ClientLourd
             {
                 keyBox.Text = result.data[1].ToString();
                 contentBox.Text = result.data[2].ToString();
+                pourcentageBox.Text = result.data[3].ToString();
+                EmailBox.Text = result.data[4].ToString();
             }
             else if(result.info == "progress")
             {
