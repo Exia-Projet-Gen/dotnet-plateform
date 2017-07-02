@@ -100,6 +100,14 @@ namespace DataLayer.Containers
             _state = state;
         }
 
+        public File(int id, string filename, string username, string state)
+        {
+            _id = id;
+            _filename = filename;
+            _username = username;
+            _state = state;
+        }
+
         public File(int id, string filename, string username, string state, string text, string key, double percent, string email)
         {
             _id = id;
