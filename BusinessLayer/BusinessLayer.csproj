@@ -45,6 +45,7 @@
     <Compile Include="Authentication.cs" />
     <Compile Include="BruteForce.cs" />
     <Compile Include="Encryption.cs" />
+    <Compile Include="Files.cs" />
     <Compile Include="Hasher.cs" />
     <Compile Include="JEE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

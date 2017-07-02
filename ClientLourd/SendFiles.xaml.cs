@@ -54,7 +54,8 @@ namespace TestClient
                 info = "file",
                 data = new object[] { Path.GetFileName(filename), FileContent },
                 operationname = "bruteForce",
-                tokenApp = MainWindow.tokenApp
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
             };
 
             //Verif that there is a file 
@@ -92,7 +93,8 @@ namespace TestClient
                 info = "signOut",
                 data = new object[] { },
                 operationname = "logout",
-                tokenApp = MainWindow.tokenApp
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
             };
 
             MessageBoxResult resultat;
@@ -121,7 +123,8 @@ namespace TestClient
                 info = "signOut",
                 data = new object[] {},
                 operationname = "logout",
-                tokenApp = MainWindow.tokenApp
+                tokenApp = MainWindow.tokenApp,
+                tokenUser = MainWindow.tokenUser
             };
 
             MessageBoxResult resultat;

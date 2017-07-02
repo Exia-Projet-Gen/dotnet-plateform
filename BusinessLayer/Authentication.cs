@@ -127,7 +127,7 @@ namespace BusinessLayer
         }
 
         // Verify if token is in database
-        public bool VerifyTokenUser(string token)
+        public string VerifyTokenUser(string token)
         {
             return mappingUsers.VerifyTokenUser(token);
         }

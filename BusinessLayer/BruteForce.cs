@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -8,25 +7,33 @@ using System.Threading.Tasks;
 using WCFInterfaces;
 using System.Web.Script.Serialization;
 using System.Threading;
+using DataLayer.Mapping;
+using DataLayer.Containers;
 
 namespace BusinessLayer
 {
     public class BruteForce
     {
         private static Dictionary<string, bool> stopBFs = new Dictionary<string, bool>();
+        private static Dictionary<string, STG> infoBfs = new Dictionary<string, STG>();
+        private static Files files = new Files();
 
         private JEE jee;
         private string file;
         private string text;
+        private string user;
 
-        public BruteForce(STG message)
+        public BruteForce(STG message, string username)
         {
             file = message.data[0].ToString();
             text = message.data[1].ToString();
+            user = username;
             jee = new JEE();
             ServicePointManager.DefaultConnectionLimit = 1000;
 
-            if(stopBFs.ContainsKey(file))
+            files.createFileInDatabase(file, user);
+
+            if (stopBFs.ContainsKey(file))
             {
                 stopBFs[file] = false;
             }
@@ -36,9 +43,10 @@ namespace BusinessLayer
             }
         }
 
-        public static void StopBruteForce(string file)
+        public static void StopBruteForce(STG message)
         {
-            stopBFs[file] = true;
+            infoBfs[message.data[0].ToString()] = message;
+            stopBFs[message.data[0].ToString()] = true;
         }
 
         public void BruteForceMessages()
@@ -57,6 +65,7 @@ namespace BusinessLayer
 
                 Console.WriteLine("call : {0}", key);
 
+                /*
                 webResponse = jee.sendDecryptedFile(
                     file,
                     key,
@@ -64,6 +73,8 @@ namespace BusinessLayer
                 );
 
                 int code = (int)webResponse.StatusCode;
+                */
+                int code = 202;
 
                 Console.WriteLine("{0} - {1}", key, code);
 
@@ -75,6 +86,8 @@ namespace BusinessLayer
             }
 
             Console.WriteLine("Stop thread for file {0}", file);
+
+            files.StoreFileResult(file, user, infoBfs[file]);
         }
     }
 }

@@ -51,6 +51,7 @@ namespace TestClient
                 else
                 {
                     MainWindow.sendFilesPage.connectedUser.Content = message.data[0];
+                    MainWindow.tokenUser = result.tokenUser;
                     this.NavigationService.Navigate(MainWindow.sendFilesPage);
                 }
             }

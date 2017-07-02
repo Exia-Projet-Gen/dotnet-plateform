@@ -83,7 +83,7 @@ namespace DataLayer.Database
             }
             catch (SqlException ex)
             {
-                LogSQLExceptions("Données - Select sur BDD Access", ex);
+                LogSQLExceptions("Données - Select sur BDD SQL", ex);
             }
 
             return _datas;
@@ -101,7 +101,7 @@ namespace DataLayer.Database
             // Si un problème survient
             catch (SqlException ex)
             {
-                LogSQLExceptions("Données - Actions sur BDD Access", ex);
+                LogSQLExceptions("Données - Actions sur BDD SQL", ex);
                 return 0;
             }
         }

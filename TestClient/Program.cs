@@ -32,6 +32,7 @@ namespace TestClient
             Console.WriteLine("('s' to signup)");
             Console.WriteLine("('c' to check token user)");
             Console.WriteLine("('bf' to send file for bruteforce)");
+            Console.WriteLine("('r' to ask for file results)");
             Console.WriteLine("('q' to quit)");
 
             do {
@@ -95,6 +96,14 @@ namespace TestClient
 
                     message.operationname = "bruteForce";
                     message.data = new object[] { Path.GetFileName(filename), FileContent };
+                }
+                else if (action == "r")
+                {
+                    Console.WriteLine("File :");
+                    string file = Console.ReadLine();
+
+                    message.operationname = "result";
+                    message.data = new object[] { file };
                 }
 
                 try {

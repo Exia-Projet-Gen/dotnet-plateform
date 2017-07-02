@@ -72,14 +72,16 @@ namespace DataLayer.Mapping
         }
 
         // Check token
-        public bool VerifyTokenUser(string token)
+        public string VerifyTokenUser(string token)
         {
             string query = "SELECT * FROM Users WHERE tokenUser = @TOKEN";
             SqlCommand command = new SqlCommand(query);
             command.Parameters.AddWithValue("TOKEN", token);
 
-            if (_bdd.SelectRows(command).Rows.Count > 0) return true;
-            else return false;
+            DataRowCollection rows = _bdd.SelectRows(command).Rows;
+
+            if (rows.Count > 0) return rows[0]["username"].ToString();
+            else return "";
         }
 
         public string getUserHashedPassword(string username)

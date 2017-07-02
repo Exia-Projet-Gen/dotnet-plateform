@@ -17,6 +17,7 @@ namespace WCFServices
     {
         private string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W";
         private Authentication auth = new Authentication();
+        private Files files = new Files();
 
         public STG m_service(STG message)
         {
@@ -42,12 +43,10 @@ namespace WCFServices
 
             if(message.operationname == "stopBruteForce")
             {
-                BruteForce.StopBruteForce(message.data[1].ToString());
+                BruteForce.StopBruteForce(message);
                 response.statut_op = true;
                 return response;
             }
-
-            Authentication auth = new Authentication();
 
             if(message.operationname == "login")
             {
@@ -61,7 +60,12 @@ namespace WCFServices
             }
             else if (message.operationname == "checkTokenUser")
             {
-                response.statut_op = auth.VerifyTokenUser(message.tokenUser);
+                string user = auth.VerifyTokenUser(message.tokenUser);
+                response.statut_op = user != "";
+                if(response.statut_op)
+                {
+                    response.data = new object[] { user };
+                }
                 return response;
             }
             else if(message.operationname == "logout")
@@ -70,7 +74,9 @@ namespace WCFServices
                 return response;
             }
 
-            if(!auth.VerifyTokenUser(message.tokenUser))
+            // Verify token user
+            string username = auth.VerifyTokenUser(message.tokenUser);
+            if (username == "")
             {
                 response.info = "Unknown token user";
                 return response;
@@ -78,7 +84,7 @@ namespace WCFServices
 
             if (message.operationname == "bruteForce")
             {
-                BruteForce workerObject = new BruteForce(message);
+                BruteForce workerObject = new BruteForce(message, username);
                 Thread workerThread = new Thread(workerObject.BruteForceMessages);
 
                 workerThread.Start();
@@ -86,6 +92,11 @@ namespace WCFServices
 
                 response.statut_op = true;
                 response.info = "started";
+                return response;
+            }
+            else if(message.operationname == "result")
+            {
+                response = files.GetResult(message, username);
                 return response;
             }
 

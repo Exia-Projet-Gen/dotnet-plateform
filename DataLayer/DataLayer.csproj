@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Containers\File.cs" />
     <Compile Include="Containers\User.cs" />
     <Compile Include="Database\iBddConnection.cs" />
     <Compile Include="Database\SQLConnection.cs" />
     <Compile Include="DataFile\Logger.cs" />
+    <Compile Include="Mapping\MappingFiles.cs" />
     <Compile Include="Mapping\MappingUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

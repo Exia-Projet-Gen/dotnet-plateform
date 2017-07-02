@@ -11,6 +11,7 @@ namespace TestClient
         public static IServices services = null;
 
         public static string tokenApp = "l{8W9Fs1p5hz;K6m.gx(vAr)BbkYHIgkH!$1rgtiUtA$BAcdXhUMOY:!5<0L62W";
+        public static string tokenUser;
 
         public static Connexion connexionPage;
         public static Inscription inscriptionPage;
